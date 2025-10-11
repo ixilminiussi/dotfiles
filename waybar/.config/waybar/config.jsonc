@@ -46,7 +46,7 @@
       },
       "escape": true,
       "tooltip": true,
-      "exec": "sh /home/ixilminiussi/.config/waybar/scripts/caway.sh -b 10",
+      "exec": "sh /home/ixilminiussi/.config/waybar/scripts/caway.sh -b 10 -f 30",
       "return-type": "json",
       "on-click": "playerctl play-pause",
       "on-scroll-up": "playerctl previous",
