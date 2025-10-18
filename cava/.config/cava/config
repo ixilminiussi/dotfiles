@@ -1,0 +1,9 @@
+[general]
+bars = 40
+framerate = 30
+autosens = 1
+
+[output]
+method = ncurses
+channels = mono
+

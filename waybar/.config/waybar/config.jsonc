@@ -2,7 +2,7 @@
   "position": "top",
   "modules-left": ["custom/caway"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["network", "pulseaudio", "battery", "clock"],
+  "modules-right": ["network", "pulseaudio", "battery", "clock", "custom/power"],
   "clock": {
     "format": "<span foreground='#f5c2e7'>  </span>{:%a %d %H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
@@ -53,5 +53,10 @@
       "on-scroll-down": "playerctl next",
       "on-click-right": "g4music",
       "max-length": 35
-  }
+  },
+  "custom/power": {
+      "format": "〇",
+      "tooltip": false,
+      "on-click": "wlogout --protocol layer-shell"
+  },
 }

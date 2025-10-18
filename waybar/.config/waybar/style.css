@@ -127,10 +127,14 @@ button:hover {
 }
 
 #custom-caway {
-    color: @pink;
-    border-bottom: 2px solid @pink;
+    color: @lavender;
+    border-bottom: 2px solid @lavender;
+    margin-top: 2px;
     margin-bottom: 2px;
     margin-left: 4px;
+    margin-right: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 #custom-caway.Playing {
@@ -140,4 +144,16 @@ button:hover {
 
 #custom-caway.Paused,
 #custom-caway.Stopped {
+}
+
+#custom-power {
+    font-size: 1rem;
+    color: @text;
+    border-bottom: 2px solid @text;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
 }

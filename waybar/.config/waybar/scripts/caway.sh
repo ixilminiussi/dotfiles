@@ -72,6 +72,7 @@ bars = $BARS
 
 [output]
 method = raw
+channels = mono
 raw_target = $cava_waybar_pipe
 data_format = ascii
 ascii_max_range = 7
