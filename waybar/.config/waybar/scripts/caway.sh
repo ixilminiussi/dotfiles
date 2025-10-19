@@ -33,7 +33,7 @@ dict="s/;//g;"
 i=0
 while [ $i -lt ${#bar} ]
 do
-    dict="${dict}s/$i/${bar:$i:1} /g;"
+    dict="${dict}s/$i/${bar:$i:1}/g;"
     i=$((i=i+1))
 done
 
@@ -57,6 +57,7 @@ kill_pid_file() {
 
 # PID of the cava process and while loop launched from the script
 cava_waybar_pid="/tmp/cava_waybar_pid"
+scroll_waybar_pid="/tmp/scroll_waybar_pid"
 
 # Clean pipe for cava
 cava_waybar_pipe="/tmp/cava_waybar.fifo"
@@ -87,30 +88,51 @@ playerctl -a metadata --format '{"text": "{{artist}} - {{title}}", "tooltip": "{
 
 # Read the playerctl o/p via its fifo pipe
 while read -r line; do
-    # Kill the cava process to stop the input to cava_waybar_pipe
+    # Kill any previous cava processes
     kill_pid_file $cava_waybar_pid
 
-    echo "$line" | jq --unbuffered --compact-output
+    song_text=$(echo "$line" | jq -r '.text')
+    player_status=$(echo "$line" | jq -r '.class')
 
-    # If the class says "Playing" and equilizer is enabled
-    # then show the cava equilizer
-    if [[ $EQUILIZER == 1 && $(echo $line | jq -r '.class') == 'Playing' ]]; then
-        # Show the playing title for 2 seconds
-        sleep 2
+    # Start panning if text longer than bars
+    if (( ${#song_text} > $BARS )); then
+        (
+            while true; do
+                for ((offset=0; offset<${#song_text}; offset++)); do
+                    display_text=${song_text:offset:BARS}
+                    if (( ${#display_text} < $BARS )); then
+                        remainder=$((BARS - ${#display_text}))
+                        display_text+="${song_text:0:remainder}"
+                    fi
+                    # Only echo if bars aren't playing
+                    if [[ ! -p $cava_waybar_pipe || ! $(pgrep -f "cava -p $cava_waybar_config") ]]; then
+                        echo "$line" | jq --arg a "$display_text" \
+                            '.text = $a' --unbuffered --compact-output
+                    fi
+                    sleep 0.2
+                done
+            done
+        ) &
+        echo $! > $scroll_waybar_pid
+    else
+        echo "$line" | jq --arg a "$song_text" \
+            '.text = $a' --unbuffered --compact-output
+    fi
 
-        # cava output into cava_waybar_pipe
+    # If playing and equalizer is enabled → show bars
+    if [[ $EQUILIZER == 1 && $player_status == 'Playing' ]]; then
+        sleep 2  # short delay before bars
+
+        # Kill panning now that bars start
+        kill_pid_file $scroll_waybar_pid
+
         cava -p $cava_waybar_config >$cava_waybar_pipe &
-
-        # Save the PID of child process
         echo $! > $cava_waybar_pid
 
-        # Read the cava o/p via its fifo pipe
         while read -r cmd2; do
-            # Change the "text" key to bars
-            echo "$line" | jq --arg a $(echo $cmd2 | sed "$dict") '.text = $a' --unbuffered --compact-output
-        done < $cava_waybar_pipe & # Do this fifo read in background
-
-        # Save the while loop PID into the file as well
+            echo "$line" | jq --arg a "$(echo "$cmd2" | sed "$dict")" \
+                '.text = $a' --unbuffered --compact-output
+        done < $cava_waybar_pipe &
         echo $! >> $cava_waybar_pid
     fi
 done < $playerctl_waybar_pipe

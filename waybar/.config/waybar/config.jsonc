@@ -1,22 +1,29 @@
 {
   "position": "top",
-  "modules-left": ["custom/caway"],
-  "modules-center": ["clock", "hyprland/workspaces"],
-  "modules-right": ["network", "pulseaudio", "battery"],
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["custom/caway", "clock"],
+  "modules-right": ["network", "custom/bluetooth", "pulseaudio", "battery"],
+
   "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:%a, %d. %b  %H:%M}",
+    "format": "  {:%d %b | %I:%M %p}",
     "tooltip-format": "{calendar}",
     "calendar": {
-	"mode": "month",
-	"format": {
-	    "months": "<span color='#b4befe'>{}</span>",
-	    "days": "<span color='#cdd6fa'>{}</span>",
-	    "weekdays": "<span color='#f9e2af'>{}</span>",
-	    "today": "<span color='#f38ba8'><b>{}</b></span>",
-	}
+      "mode": "month",
+      "format": {
+        "months": "<span color='#b4befe'>{}</span>",
+        "days": "<span color='#cdd6fa'>{}</span>",
+        "weekdays": "<span color='#f9e2af'>{}</span>",
+        "today": "<span color='#f38ba8'><b>{}</b></span>"
+      }
     }
   },
+
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 50,
+    "tooltip": false
+  },
+
   "battery": {
     "states": {
       "warning": 30,
@@ -29,44 +36,60 @@
     "format-plugged": " {capacity}%",
     "format-alt": "{icon} {time}",
     "format-full": "  {capacity}%",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": [" ", " ", " ", " ", " "],
     "tooltip-format": "{time}"
   },
+
   "network": {
-    "format-wifi": "  {signalStrength}%",
-    "format-ethernet": "󰤭  Disconnected",
-    "format-linked": "{ifname} (No IP) ",
+    "format-wifi": "{icon} {signalStrength}%",
+    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤨 "], // low, medium, high
+    "format-ethernet": "󰈀  Connected",
     "format-disconnected": "  Disconnected",
     "tooltip-format-wifi": "{essid}"
   },
+
+  "custom/bluetooth": {
+    "format": "{icon}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/bluetooth-status.sh",
+    "interval": 5,
+    "on-click": "~/.config/waybar/scripts/toggle-bluetooth.sh",
+    "tooltip": true,
+    "format-icons": {
+      "on": "",
+      "off": "󰂯"
+    }
+  },
+
   "pulseaudio": {
-      "format": "{icon} {volume}%",
-      "format-muted": "",
-      "format-icons": {
-          "default": ["", "", " "]
-      },
-      "on-click": "pavucontrol"
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
   },
+
   "custom/caway": {
-      "format": "{icon} {text}",
-      "format-icons": {
-          // "Playing": " ", // Uncomment if not using caway
-          "Paused": "\uf04c ",
-          "Stopped": "\uf04d " // This stop symbol is RTL. So &#x202d; is left-to-right override.
-      },
-      "escape": true,
-      "tooltip": true,
-      "exec": "sh /home/ixilminiussi/.config/waybar/scripts/caway.sh -b 6 -f 30",
-      "return-type": "json",
-      "on-click": "playerctl play-pause",
-      "on-scroll-up": "playerctl previous",
-      "on-scroll-down": "playerctl next",
-      "on-click-right": "g4music",
-      "max-length": 35
+    "format": "{text}",
+    "format-icons": {
+      "Paused": "\uf04c ",
+      "Stopped": "\uf04d "
+    },
+    "escape": true,
+    "tooltip": true,
+    "exec": "sh /home/ixilminiussi/.config/waybar/scripts/caway.sh -b 10 -f 30",
+    "return-type": "json",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next",
+    "on-click-right": "g4music",
+    "max-length": 35
   },
+
   "custom/power": {
-      "format": "〇",
-      "tooltip": false,
-      "on-click": "wlogout --protocol layer-shell"
-  },
+    "format": "󰽥",
+    "tooltip": false,
+    "on-click": "wlogout --protocol layer-shell"
+  }
 }
