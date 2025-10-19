@@ -42,6 +42,7 @@
 
   "network": {
     "format-wifi": "{icon} {signalStrength}%",
+    "format-alt": "{icon} {essid}",
     "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤨 "], // low, medium, high
     "format-ethernet": "󰈀  Connected",
     "format-disconnected": "  Disconnected",
