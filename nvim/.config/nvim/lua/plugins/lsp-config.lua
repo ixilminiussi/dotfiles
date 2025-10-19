@@ -76,6 +76,7 @@ return {
 				{ "?",          vim.lsp.buf.hover,       desc = "Hover action",         mode = "n" },
 				{ "<leader>gd", vim.lsp.buf.declaration, desc = "Go to declaration",    mode = "n" },
 				{ "<leader>gi", vim.lsp.buf.definition,  desc = "Go to implementation", mode = "n" },
+				{ "<M-CR>",     vim.lsp.buf.code_action, desc = "Code action",          mode = "n" },
 				{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action",          mode = "n" },
 			})
 		end,

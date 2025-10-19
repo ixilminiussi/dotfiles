@@ -1,6 +1,11 @@
+@import "mocha.css";
+
 * {
 	background-image: none;
 	box-shadow: none;
+	font-family: "MesloLGS Nerd Font Mono Bold", monospace;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 window {
@@ -8,13 +13,14 @@ window {
 }
 
 button {
-	border-radius: 0;
-	border-color: #cba6f7;
-	text-decoration-color: #cdd6f4;
-	color: #cdd6f4;
-	background-color: #181825;
+	border-radius: 10;
+	border-color: @mauve;
+	text-decoration-color: @mauve;
+	background-color: @crust;
+	color: @text;
+	margin: 16px;
 	border-style: solid;
-	border-width: 1px;
+	border-width: 2px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 25%;
@@ -22,30 +28,44 @@ button {
 
 button:focus, button:active, button:hover {
 	/* 20% Overlay 2, 80% mantle */
-	background-color: rgb(48, 50, 66);
+	background-color: @mantle;
+	border-width: 2px;
+	background-size: 30%;
 	outline-style: none;
 }
 
 #lock {
-    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/mauve/lock.svg");
+    border-color: @teal;
+    text-decoration-color: @teal;
+    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/teal/lock.svg");
 }
 
 #logout {
+    border-color: @mauve;
+    text-decoration-color: @mauve;
     background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/mauve/logout.svg");
 }
 
 #suspend {
-    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/mauve/suspend.svg");
+    border-color: @yellow;
+    text-decoration-color: @yellow;
+    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/yellow/suspend.svg");
 }
 
 #hibernate {
-    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/mauve/hibernate.svg");
+    border-color: @blue;
+    text-decoration-color: @blue;
+    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/blue/hibernate.svg");
 }
 
 #shutdown {
-    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/mauve/shutdown.svg");
+    border-color: @maroon;
+    text-decoration-color: @maroon;
+    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/maroon/shutdown.svg");
 }
 
 #reboot {
-    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/mauve/reboot.svg");
+    border-color: @green;
+    text-decoration-color: @green;
+    background-image: url("/home/ixilminiussi/.config/wlogout/icons/mocha/green/reboot.svg");
 }
