@@ -1,11 +1,26 @@
 {
   "position": "top",
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
-  "modules-center": ["custom/caway", "clock"],
-  "modules-right": ["network", "custom/bluetooth", "pulseaudio", "battery"],
+  "modules-left": ["cpu", "memory", "temperature", "battery", "hyprland/workspaces"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["bluetooth", "pulseaudio", "backlight", "network", "clock"],
+
+  "cpu": {
+    "format": "  {usage}%",
+  },
+    
+  "memory": {
+    "format": "  {used:0.1f}GiB"
+  },
+
+  "temperature": {
+    "format": "{icon} {temperatureC}°C",
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "format-icons": ["", "", "", "", ""],
+    "critical-threshold": 80,
+  },
 
   "clock": {
-    "format": "  {:%d %b | %I:%M %p}",
+    "format": "󱑀  {:%I:%M %p}",
     "tooltip-format": "{calendar}",
     "calendar": {
       "mode": "month",
@@ -18,12 +33,24 @@
     }
   },
 
-  "hyprland/window": {
-    "format": "{}",
-    "max-length": 50,
-    "tooltip": false
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",   
+      "default": ""  
+    },
+    "persistent-workspaces": {
+      "*": 4
+    },
+    "active-only": false
   },
 
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 20,
+    "tooltip": false
+  },
+ 
   "battery": {
     "states": {
       "warning": 30,
@@ -41,34 +68,32 @@
   },
 
   "network": {
-    "format-wifi": "{icon} {signalStrength}%",
-    "format-alt": "{icon} {essid}",
+    "format-alt": "{icon} {signalStrength}%",
+    "format-wifi": "{icon} {essid}",
     "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤨 "], // low, medium, high
     "format-ethernet": "󰈀  Connected",
     "format-disconnected": "  Disconnected",
     "tooltip-format-wifi": "{essid}"
   },
 
-  "custom/bluetooth": {
-    "format": "{icon}",
-    "return-type": "json",
-    "exec": "~/.config/waybar/scripts/bluetooth-status.sh",
-    "interval": 5,
-    "on-click": "~/.config/waybar/scripts/toggle-bluetooth.sh",
-    "tooltip": true,
-    "format-icons": {
-      "on": "",
-      "off": "󰂯"
-    }
+  "bluetooth": {
+    "on-click": "bluetoothctl power toggle",
+    "on-click-right": "bluetoothctl devices | grep Connected",
   },
 
   "pulseaudio": {
-    "format": "{icon} {volume}%",
+    "format": "{icon} {volume}",
     "format-muted": "",
     "format-icons": {
       "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}",
+    "format-icons": ["󰃞"],
   },
 
   "custom/caway": {
@@ -79,7 +104,7 @@
     },
     "escape": true,
     "tooltip": true,
-    "exec": "sh /home/ixilminiussi/.config/waybar/scripts/caway.sh -b 10 -f 30",
+    "exec": "sh /home/ixilminiussi/.config/waybar/scripts/caway.sh -b 12 -f 60",
     "return-type": "json",
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl previous",
@@ -89,7 +114,7 @@
   },
 
   "custom/power": {
-    "format": "󰽥",
+    "format": "{icon}",
     "tooltip": false,
     "on-click": "wlogout --protocol layer-shell"
   }
