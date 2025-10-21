@@ -1,8 +1,20 @@
 {
   "position": "top",
-  "modules-left": ["cpu", "memory", "temperature", "battery", "hyprland/workspaces"],
+  "modules-left": ["power-profiles-daemon", "cpu", "memory", "temperature", "battery", "hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["bluetooth", "pulseaudio", "backlight", "network", "clock"],
+  "modules-right": ["pulseaudio", "pulseaudio_mic", "backlight", "bluetooth", "network", "clock"],
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": " ",
+      "performance": " ",
+      "balanced": " ",
+      "power-saver": " "
+    }
+  },
 
   "cpu": {
     "format": "  {usage}%",
@@ -21,6 +33,7 @@
 
   "clock": {
     "format": "󱑀  {:%I:%M %p}",
+    "format-alt": "󰃰  {:%d %b %I:%M %p}",
     "tooltip-format": "{calendar}",
     "calendar": {
       "mode": "month",
@@ -59,8 +72,8 @@
     "format": "{icon} {capacity}%",
     "format-warning": "{icon} {capacity}%",
     "format-critical": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-plugged": "  {capacity}%",
     "format-alt": "{icon} {time}",
     "format-full": "  {capacity}%",
     "format-icons": [" ", " ", " ", " ", " "],
@@ -68,7 +81,7 @@
   },
 
   "network": {
-    "format-alt": "{icon} {signalStrength}%",
+    "format-alt": "{icon} {signalStrength}",
     "format-wifi": "{icon} {essid}",
     "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤨 "], // low, medium, high
     "format-ethernet": "󰈀  Connected",
@@ -84,16 +97,32 @@
   "pulseaudio": {
     "format": "{icon} {volume}",
     "format-muted": "",
+    "scroll-step": 5,
     "format-icons": {
-      "default": ["", "", ""]
+      "default": [" ", " ", " "]
     },
-    "on-click": "pavucontrol"
+    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_SINK@ 5%- --limit 1.5",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_SINK@ 5%+ --limit 1.5",
+  },
+
+  "pulseaudio_mic": {
+    "format": "{icon} {volume}",
+    "format-muted": "",
+    "scroll-step": 5,
+    "format-icons": {
+      "default": [" ", " ", " "]
+    },
+    "source": true,
+    "on-click": "wpctl set-mute @DEFAULT_SOURCE@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_SOURCE@ 5%- --limit 1.0",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_SOURCE@ 5%+ --limit 1.0",
   },
 
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}",
-    "format-icons": ["󰃞"],
+    "format-icons": ["󰃞 "],
   },
 
   "custom/caway": {

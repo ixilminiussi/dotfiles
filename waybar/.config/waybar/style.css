@@ -36,11 +36,12 @@ button:hover {
     padding-left: 19px;
     padding-right: 12px;
     margin: 4px;
-    border-radius: 4;
+    border-radius: 4px;
     background: @subtext1;
     color: @mantle;
 }
 
+#power-profiles-daemon,
 #cpu,
 #memory,
 #temperature,
@@ -63,6 +64,23 @@ button:hover {
 #mode,
 #scratchpad {
     padding: 8px 20px;
+}
+
+#power-profiles-daemon {
+    color: @text;
+}
+
+#power-profiles-daemon.default,
+#power-profiles-daemon.performance {
+    color: @red;
+}
+
+#power-profiles-daemon.balanced {
+    color: @yellow;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green;
 }
 
 #cpu {
@@ -115,7 +133,7 @@ button:hover {
 }
 
 #network {
-    color: @lavender;
+    color: @mauve;
 }
 
 #clock {
