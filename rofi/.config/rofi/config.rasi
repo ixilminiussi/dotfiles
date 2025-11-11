@@ -1,16 +1,17 @@
 configuration{
-    modi: "run,window,combi";
-    icon-theme: "Oranchelo";
+    modi: "drun,run";
+    icon-theme: "Yaru";
     show-icons: true;
-    terminal: "alacritty";
-    drun-display-format: "{icon} {name}";
-    location: 0;
-    disable-history: false;
-    hide-scrollbar: true;
-    display-combi: " 🖥️  All ";
-    display-run: " 🏃  Run ";
-    display-window: " 🪟  Window";
+    terminal: "kitty";
+    drun-display-format: "{name}";
+    combi-hide-mode-prefix: true;
+    location: 2;
+    display-drun: " ";
+    display-run: " ";
+    disable-history: true;
+    click-to-enter: true;
+    hide-scrollbar: false;
     sidebar-mode: true;
 }
 
-@theme "catppuccin-mocha"
+@theme "apps"

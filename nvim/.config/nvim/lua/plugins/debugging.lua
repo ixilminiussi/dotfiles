@@ -130,6 +130,31 @@ return {
 				processId = require("dap.utils").pick_process,
 			},
 		}
+
+		dap.adapters.python = {
+			type = "executable",
+			command = "python3",
+			args = { "-m", "debugpy.adapter" },
+		}
+
+		dap.configurations.python = {
+			{
+				type = "python",
+				request = "launch",
+				name = "Launch current file",
+				program = function()
+					return vim.api.nvim_buf_get_name(0)
+				end,
+				pythonPath = function()
+					return "python3" -- system Python
+				end,
+				args = function()
+					local input = vim.fn.input("Arguments: ")
+					return vim.split(input, " +")
+				end,
+			},
+		}
+
 		--
 		-- GO config
 		require("dap-go").setup()

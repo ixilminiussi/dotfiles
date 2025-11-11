@@ -1,0 +1,101 @@
+@import "~/.config/rofi/catppuccin-colors.rasi"
+
+element-text, element-icon , mode-switcher {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+window {
+    children: [ inputbar, message, listview ];
+    border-color: @lavender;
+    background-color: @mantle;
+    width: 70%;
+    height: 36%;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+mainbox {
+    background-color: @transparent;
+    padding: 10px;
+}
+
+inputbar {
+    children: [ mode-switcher, entry ];
+    background-color: @transparent;
+    margin: 20px 10% 0px 10%;
+    spacing: 12px;
+}
+
+mode-switcher {
+    spacing: 12px;
+    width: 160px;       
+    horizontal-align: 0.5;
+    height: 50px;     
+}
+
+button {
+    padding: 10px;
+    background-color: @base;
+    text-color: @subtext1;
+    vertical-align: 0.5; 
+    horizontal-align: 0.5;
+    font: "JetBrainsMono Nerd Font 22";
+}
+
+button selected {
+  background-color: @maroon;
+  text-color: @mantle;
+}
+
+entry {
+    padding: 20px;
+    text-color: @rosewater;
+    background-color: @crust;
+}
+
+listview {
+    flow: vertical;
+    border: 0px 0px 0px;
+    margin: 20px;
+    columns: 8;
+    background-color: @transparent;
+}
+
+element {
+    orientation: vertical;
+    padding: 30px;
+    background-color: @transparent;
+    text-color: @subtext1;
+}
+
+element-icon {
+    size: 100px;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+element selected {
+    background-color: @crust;
+    border: 0px 0px 0px 5px;
+    border-color: @maroon;
+    text-color: @rosewater;
+}
+
+message {
+    background-color: @transparent;
+    margin: 2px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+textbox {
+    padding: 6px;
+    margin: 20px 0px 0px 20px;
+    text-color: @text;
+    background-color: @transparent;
+}
