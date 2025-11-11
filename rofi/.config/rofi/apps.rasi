@@ -21,37 +21,22 @@ mainbox {
 }
 
 inputbar {
-    children: [ mode-switcher, entry ];
+    children: [ prompt, entry ];
+    background-color: @crust;
+    margin: 20px 20% 0px 20%;
+    border-radius: 5px;
+    padding: 20px 0px 20px 25px;
+    spacing: 20px;
+}
+
+prompt {
     background-color: @transparent;
-    margin: 20px 10% 0px 10%;
-    spacing: 12px;
-}
-
-mode-switcher {
-    spacing: 12px;
-    width: 160px;       
-    horizontal-align: 0.5;
-    height: 50px;     
-}
-
-button {
-    padding: 10px;
-    background-color: @base;
-    text-color: @subtext1;
-    vertical-align: 0.5; 
-    horizontal-align: 0.5;
-    font: "JetBrainsMono Nerd Font 22";
-}
-
-button selected {
-  background-color: @maroon;
-  text-color: @mantle;
+    text-color: @maroon;
 }
 
 entry {
-    padding: 20px;
     text-color: @rosewater;
-    background-color: @crust;
+    background-color: @transparent;
 }
 
 listview {

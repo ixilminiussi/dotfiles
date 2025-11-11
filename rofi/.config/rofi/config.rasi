@@ -1,13 +1,11 @@
 configuration{
-    modi: "drun,run";
+    modi: "drun";
     icon-theme: "Yaru";
     show-icons: true;
-    terminal: "kitty";
     drun-display-format: "{name}";
     combi-hide-mode-prefix: true;
     location: 2;
-    display-drun: " ";
-    display-run: " ";
+    display-drun: " ";
     disable-history: true;
     click-to-enter: true;
     hide-scrollbar: false;
