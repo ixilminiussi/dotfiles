@@ -14,6 +14,7 @@ return {
 					condition = function(utils)
 						return utils.root_has_file(".prettierrc")
 					end,
+					filetypes = { "md" },
 				}),
 				null_ls.builtins.formatting.clang_format.with({
 					command = "clang-format",
@@ -36,6 +37,7 @@ return {
 				}),
 			},
 		})
+
 
 		-- Function to preserve both cursor and scroll position
 		local function format_and_preserve_view()

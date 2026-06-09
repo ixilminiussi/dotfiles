@@ -15,6 +15,9 @@ return {
 					"glsl_analyzer",
 					"gopls",
 					"glslls",
+					"ols",
+					"html",
+					"cssls",
 				},
 			})
 		end,
@@ -41,7 +44,31 @@ return {
 				end,
 			})
 
+			local configs = require("lspconfig.configs")
+			if not configs.jails then
+				configs.jails = {
+					default_config = {
+						cmd = { "jails" },
+						filetypes = { "jai" },
+						root_dir = function(fname)
+							local util = require("lspconfig.util")
+							return util.root_pattern("jails.json", ".git")(fname)
+								or util.path.dirname(fname)
+						end
+					},
+				}
+			end
+
+			lspconfig.ols.setup({
+				capabilities = capabilities,
+			})
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.html.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.cssls.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.clangd.setup({
@@ -65,6 +92,11 @@ return {
 				cmd = { "/home/ixilminiussi/.local/share/nvim/mason/bin/glslls", "--stdin", "--target-env=vulkan" },
 				capabilities = capabilities,
 				filetypes = { "glsl", "vert", "frag", "geom", "tesc", "tese", "comp" },
+			})
+			lspconfig.jails.setup({
+				cmd = { "jails" },
+				filetypes = { "jai" },
+				capabilities = capabilities,
 			})
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
